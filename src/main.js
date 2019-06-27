@@ -13,13 +13,12 @@ router.beforeEach((to, from, next) => {
   // console.log(to, from, next)
   if (to.path === '/login') {
     next()
+    return
   }
-  if (to.path !== '/login') {
-    if (localStorage.getItem('mytoken')) {
-      next()
-    } else {
-      router.push('/login')
-    }
+  if (localStorage.getItem('mytoken')) {
+    next()
+  } else {
+    router.push('/login')
   }
 })
 
