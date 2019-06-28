@@ -85,7 +85,7 @@ export default {
   background-color: #fff;
   padding: 30px 20px;
   border-radius: 10px;
-  min-width: 400px;
+  min-width: 320px;
 }
 </style>
 
