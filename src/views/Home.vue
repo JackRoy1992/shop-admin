@@ -1,3 +1,142 @@
 <template>
-  <h1>这是首页</h1>
+  <el-container>
+    <el-header class="homeHeader">
+      <el-row type="flex" class="row-bg" align="middle">
+        <el-col :span="8">
+          <div class="logo">
+            <img src="../assets/logo.png" alt />
+          </div>
+        </el-col>
+        <el-col>
+          <h1>品优购后台管理系统</h1>
+        </el-col>
+        <el-col :span="8" class="link">
+          <div>
+            欢迎上海39期心悦会员
+            <a href="#">退出</a>
+          </div>
+        </el-col>
+      </el-row>
+    </el-header>
+    <el-container>
+      <el-aside width="200px">
+        <el-menu
+          :default-active="$route.path"
+          class="el-menu-vertical-demo"
+          background-color="#545c64"
+          text-color="#fff"
+          active-text-color="#ffd04b"
+          :unique-opened="true"
+          :router="true"
+        >
+          <el-submenu index="1">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>用户管理</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="/user">
+                <i class="el-icon-menu"></i>
+                <span slot="title">用户管理</span>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="2">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>权限管理</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="2-1">
+                <i class="el-icon-menu"></i>
+                <span slot="title">角色列表</span>
+              </el-menu-item>
+              <el-menu-item index="2-2">
+                <i class="el-icon-menu"></i>
+                <span slot="title">权限列表</span>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="3">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>商品管理</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="3-1">
+                <i class="el-icon-menu"></i>
+                <span slot="title">商品列表</span>
+              </el-menu-item>
+              <el-menu-item index="3-2">
+                <i class="el-icon-menu"></i>
+                <span slot="title">分类参数</span>
+              </el-menu-item>
+              <el-menu-item index="3-3">
+                <i class="el-icon-menu"></i>
+                <span slot="title">商品分类</span>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="4">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>订单管理</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="4-1">
+                <i class="el-icon-menu"></i>
+                <span slot="title">订单分类</span>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+          <el-submenu index="5">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span>数据统计</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="5-1">
+                <i class="el-icon-menu"></i>
+                <span slot="title">数据报表</span>
+              </el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+        </el-menu>
+      </el-aside>
+      <el-main>
+        <router-view></router-view>
+      </el-main>
+    </el-container>
+  </el-container>
 </template>
+
+
+<style>
+.el-header.homeHeader {
+  background-color: skyblue;
+  padding: 0;
+}
+.el-header .logo img {
+  width: 200px;
+}
+.el-header h1 {
+  text-align: center;
+  color: #fff;
+  font-size: 34px;
+}
+.el-header .link {
+  text-align: right;
+  font-weight: 700;
+  padding-right: 20px;
+}
+.el-header .link a {
+  color: goldenrod;
+  text-decoration: none;
+}
+.el-container {
+  height: 100%;
+}
+.el-menu-vertical-demo {
+  height: 100%;
+}
+</style>
