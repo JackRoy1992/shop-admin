@@ -13,7 +13,7 @@
         <el-col :span="8" class="link">
           <div>
             欢迎上海39期心悦会员
-            <a href="#">退出</a>
+            <a href="#" @click.prevent="logout">退出</a>
           </div>
         </el-col>
       </el-row>
@@ -110,6 +110,16 @@
   </el-container>
 </template>
 
+<script>
+export default {
+  methods: {
+    logout() {
+      localStorage.setItem("mytoken", "");
+      this.$router.push("/login");
+    }
+  }
+};
+</script>
 
 <style>
 .el-header.homeHeader {

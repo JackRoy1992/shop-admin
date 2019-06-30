@@ -17,7 +17,6 @@
   </el-row>
 </template>
 <script>
-import axios from "axios";
 export default {
   data() {
     return {
@@ -52,7 +51,7 @@ export default {
       let valid = await this.$refs[formName].validate();
       if (valid) {
         try {
-          let res = await axios({
+          let res = await this.$http({
             url: "http://localhost:8888/api/private/v1/login",
             method: "post",
             data: this.form
