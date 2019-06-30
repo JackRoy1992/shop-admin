@@ -5,7 +5,7 @@
     <el-table-column prop="mobile" label="电话"></el-table-column>
     <el-table-column label="用户状态">
       <template v-slot="{row}">
-        <el-switch v-model="row.type" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
+        <el-switch v-model="row.mg_state" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
       </template>
     </el-table-column>
     <el-table-column label="操作">
@@ -33,6 +33,7 @@ export default {
         pagesize: 5
       }
     }).then(({ data: { data: { users } } }) => {
+      // console.log(users);
       this.tableData = users;
     });
   }
