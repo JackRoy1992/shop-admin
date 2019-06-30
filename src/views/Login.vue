@@ -48,26 +48,40 @@ export default {
     };
   },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-          axios({
-            url: "http://localhost:8888/api/private/v1/login",
+    async submitForm(formName) {
+      let valid = await this.$refs[formName].validate();
+      if (valid) {
+        try {
+          let res = await axios({
+            url: "http://localhost:88881/api/private/v1/login",
             method: "post",
             data: this.form
-          }).then(({ data: { data, meta } }) => {
-            if (meta.status === 200) {
-              // console.log(data.token);
-              localStorage.setItem("mytoken", data.token);
-              this.$router.push("/home");
-            } else {
-              alert(meta.msg);
-            }
           });
-        } else {
-          return false;
+          if (res.data.meta.status === 200) {
+            localStorage.setItem("mytoken", res.data.data.token);
+            this.$router.push("/home");
+          } else {
+            this.$message({
+              type: "error",
+              message: res.data.meta.msg,
+              duration: 2000
+            });
+          }
+        } catch (err) {
+          window.console.log("请求发送失败", err);
         }
-      });
+        // .then(({ data: { data, meta } }) => {
+        //   if (meta.status === 200) {
+        //     // console.log(data.token);
+        //     localStorage.setItem("mytoken", data.token);
+        //     this.$router.push("/home");
+        //   } else {
+        //     alert(meta.msg);
+        //   }
+        // });
+      } else {
+        return false;
+      }
     },
     resetForm(formName) {
       this.$refs[formName].resetFields();
