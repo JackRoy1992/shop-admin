@@ -1,7 +1,13 @@
 <template>
   <el-row type="flex" class="row-bg" justify="center" align="middle">
     <el-col :xs="14" :sm="12" :md="10" :lg="8" :xl="6" class="login">
-      <el-form ref="Loginform" :model="form" label-width="80px" label-position="top" :rules="rules">
+      <el-form
+        ref="Loginform"
+        :model="form"
+        label-width="80px"
+        label-position="top"
+        :rules="rules"
+      >
         <el-form-item label="用户名" prop="username">
           <el-input v-model="form.username"></el-input>
         </el-form-item>
@@ -9,7 +15,9 @@
           <el-input type="password" v-model="form.password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="submitForm('Loginform')">登录</el-button>
+          <el-button type="primary" @click="submitForm('Loginform')"
+            >登录</el-button
+          >
           <el-button @click="resetForm('Loginform')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -101,4 +109,3 @@ export default {
   min-width: 320px;
 }
 </style>
-

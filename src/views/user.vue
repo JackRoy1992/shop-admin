@@ -13,19 +13,29 @@
           v-model="keyword"
           @keyup.enter.native="search"
         >
-          <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
+          <el-button
+            slot="append"
+            icon="el-icon-search"
+            @click="search"
+          ></el-button>
         </el-input>
       </el-col>
       <el-col :span="6">
-        <el-button type="success" plain @click="addUserDialog = true">添加用户</el-button>
+        <el-button type="success" plain @click="addUserDialog = true"
+          >添加用户</el-button
+        >
       </el-col>
     </el-row>
     <el-table :data="tableData" stripe style="width: 100%">
-      <el-table-column prop="username" label="姓名" width="180"></el-table-column>
+      <el-table-column
+        prop="username"
+        label="姓名"
+        width="180"
+      ></el-table-column>
       <el-table-column prop="email" label="邮箱" width="180"></el-table-column>
       <el-table-column prop="mobile" label="电话"></el-table-column>
       <el-table-column label="用户状态">
-        <template v-slot="{row}">
+        <template v-slot="{ row }">
           <el-switch
             v-model="row.mg_state"
             active-color="#13ce66"
@@ -34,7 +44,7 @@
           ></el-switch>
         </template>
       </el-table-column>
-      <el-table-column label="操作" v-slot="{row}">
+      <el-table-column label="操作" v-slot="{ row }">
         <template>
           <el-button
             type="primary"
@@ -50,7 +60,9 @@
             size="small"
             @click="isDelete(row.id)"
           ></el-button>
-          <el-button type="success" plain icon="el-icon-check" size="small">分配角色</el-button>
+          <el-button type="success" plain icon="el-icon-check" size="small"
+            >分配角色</el-button
+          >
         </template>
       </el-table-column>
     </el-table>
@@ -69,12 +81,24 @@
       :visible.sync="addUserDialog"
       @close="$refs.addUserForm.resetFields()"
     >
-      <el-form :model="addUserForm" label-width="80px" :rules="addUserRules" ref="addUserForm">
+      <el-form
+        :model="addUserForm"
+        label-width="80px"
+        :rules="addUserRules"
+        ref="addUserForm"
+      >
         <el-form-item label="用户名" prop="username">
-          <el-input autocomplete="off" v-model="addUserForm.username"></el-input>
+          <el-input
+            autocomplete="off"
+            v-model="addUserForm.username"
+          ></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input autocomplete="off" type="password" v-model="addUserForm.password"></el-input>
+          <el-input
+            autocomplete="off"
+            type="password"
+            v-model="addUserForm.password"
+          ></el-input>
         </el-form-item>
         <el-form-item label="邮箱" prop="email">
           <el-input autocomplete="off" v-model="addUserForm.email"></el-input>
@@ -94,7 +118,12 @@
       :visible.sync="editUserDialog"
       @close="$refs.editUserForm.resetFields()"
     >
-      <el-form :model="editUserForm" label-width="80px" :rules="editUserRules" ref="editUserForm">
+      <el-form
+        :model="editUserForm"
+        label-width="80px"
+        :rules="editUserRules"
+        ref="editUserForm"
+      >
         <el-form-item label="用户名" prop="username">
           <el-tag type="info" v-text="editUserForm.username"></el-tag>
         </el-form-item>
@@ -300,7 +329,7 @@ export default {
             });
           }
         } catch (err) {
-          console.log("请求发送失败", err);
+          window.console.log("请求发送失败", err);
         }
       }
     },
@@ -314,7 +343,7 @@ export default {
           this.editUserForm = res.data.data;
         }
       } catch (err) {
-        console.log("请求发送失败", err);
+        window.console.log("请求发送失败", err);
       }
     },
     async submitEditForm() {
@@ -342,7 +371,7 @@ export default {
             });
           }
         } catch (err) {
-          console.log("请求发送失败", err);
+          window.console.log("请求发送失败", err);
         }
       }
     }
