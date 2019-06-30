@@ -53,7 +53,7 @@ export default {
       if (valid) {
         try {
           let res = await axios({
-            url: "http://localhost:88881/api/private/v1/login",
+            url: "http://localhost:8888/api/private/v1/login",
             method: "post",
             data: this.form
           });
