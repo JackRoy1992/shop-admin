@@ -1,0 +1,16 @@
+.el-main .el-breadcrumb {
+  background-color: #0c8680;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+  margin-bottom: 5px;
+}
+.el-breadcrumb .el-breadcrumb__inner,
+.el-breadcrumb .el-breadcrumb__inner.is-link,
+.el-breadcrumb .el-breadcrumb__separator,
+.el-breadcrumb .el-breadcrumb__inner.is-link:hover,
+.el-breadcrumb .el-breadcrumb__item:last-child .el-breadcrumb__inner {
+  color: #fff;
+  font-size: 18px;
+  /* line-height: 50px; */
+}

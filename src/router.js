@@ -1,30 +1,35 @@
-import Vue from "vue";
-import Router from "vue-router";
-import Login from "./views/Login.vue";
-import Home from "./views/Home.vue";
-import User from "./views/user.vue";
+import Vue from 'vue'
+import Router from 'vue-router'
+import Login from './views/Login/Login.vue'
+import Home from './views/Home/Home.vue'
+import User from './views/User/user.vue'
+import Role from './views/Role/role.vue'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: "/login",
+      path: '/login',
       component: Login
     },
     {
-      path: "/home",
+      path: '/home',
       component: Home,
       children: [
         {
-          path: "/user",
+          path: '/user',
           component: User
+        },
+        {
+          path: '/role',
+          component: Role
         }
       ]
     },
     {
-      path: "/",
-      redirect: "/home"
+      path: '/',
+      redirect: '/home'
     }
   ]
-});
+})

@@ -4,7 +4,7 @@
       <el-row type="flex" class="row-bg" align="middle">
         <el-col :span="8">
           <div class="logo">
-            <img src="../assets/logo.png" alt />
+            <img src="../../assets/logo.png" alt />
           </div>
         </el-col>
         <el-col>
@@ -47,7 +47,7 @@
               <span>权限管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index="2-1">
+              <el-menu-item index="/role">
                 <i class="el-icon-menu"></i>
                 <span slot="title">角色列表</span>
               </el-menu-item>
