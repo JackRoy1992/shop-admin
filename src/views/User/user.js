@@ -8,6 +8,7 @@ export default {
       keyword: '',
       addUserDialog: false,
       editUserDialog: false,
+      roleDialog: false,
       addUserForm: {
         username: '',
         password: '',
@@ -20,6 +21,12 @@ export default {
         email: '',
         mobile: ''
       },
+      roleForm: {
+        username: '',
+        rid: ''
+      },
+      value: '',
+      rolesList: {},
       addUserRules: {
         username: [
           { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -229,6 +236,76 @@ export default {
           // window.console.log("请求发送失败", err);
         }
       }
+    },
+    async showRoleDialog(id) {
+      this.roleDialog = true
+      try {
+        // 获取用户信息
+        let res = await this.$http({
+          url: `users/${id}`
+        })
+        if (res.data.meta.status === 200) {
+          this.roleForm = res.data.data
+          // console.log('角色列表', this.roleForm)
+          let res1 = await this.$http({
+            url: 'roles'
+          })
+          if (res1.data.meta.status === 200) {
+            this.rolesList = res1.data.data
+            // console.log('角色名字', this.rolesList)
+          } else {
+            this.$message({
+              type: 'error',
+              message: re1s.data.meta.msg,
+              duration: 2000
+            })
+          }
+        } else {
+          this.$message({
+            type: 'error',
+            message: res.data.meta.msg,
+            duration: 2000
+          })
+        }
+        let res1 = await this.$http({
+          url: 'roles'
+        })
+        if (res1.data.meta.status === 200) {
+          this.roelsList.push(res1.data.data.roleName)
+          // console.log(this.roelsList)
+        } else {
+          this.$message({
+            type: 'error',
+            message: res1.data.meta.msg,
+            duration: 2000
+          })
+        }
+      } catch (err) {}
+    },
+    async submitRoleForm() {
+      try {
+        let res = await this.$http({
+          url: `users/${this.roleForm.id}/role`,
+          method: 'put',
+          data: {
+            rid: this.roleForm.rid
+          }
+        })
+        if (res.data.meta.status === 200) {
+          this.$message({
+            type: 'success',
+            message: res.data.meta.msg,
+            duration: 2000
+          })
+          this.roleDialog = false
+        } else {
+          this.$message({
+            type: 'error',
+            message: res.data.meta.msg,
+            duration: 2000
+          })
+        }
+      } catch (err) {}
     }
   }
 }

@@ -58,12 +58,12 @@
             icon="el-icon-check"
             size="small"
             @click="showRoleDialog(row)"
-          >分配角色</el-button>
+          >分配权限</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <!-- 分配角色模态框 -->
-    <el-dialog title="分配角色" :visible.sync="editRoleDialog">
+    <!-- 分配权限模态框 -->
+    <el-dialog title="分配权限" :visible.sync="editRoleDialog">
       <el-tree
         :data="rightsList"
         show-checkbox
@@ -138,7 +138,8 @@ export default {
             });
           });
           // 将三个数组结构，数据放到一个代表选中的数组中
-          this.checkedRights = [...level1Id, ...level2Id, ...level3Id];
+          // this.checkedRights = [...level1Id, ...level2Id, ...level3Id];
+          this.checkedRights = [...level3Id];
         }
       } catch (err) {}
     },
@@ -191,7 +192,7 @@ export default {
       let result = [...level1Id, ...level2Id, ...level3Id];
       //从显示的权限中过滤掉删除的权限
       let rids = result.filter(v => v !== id).join(",");
-      console.log(result, rids);
+      // console.log(result, rids);
       let res = await this.$http({
         url: `roles/${row.id}/rights`,
         method: "post",
