@@ -5,7 +5,7 @@
       <el-breadcrumb-item>权限管理</el-breadcrumb-item>
       <el-breadcrumb-item>角色列表</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-table :data="roleList" stripe style="width: 100%">
+    <el-table :data="roleList" stripe style="width: 100%" ref="roleTable">
       <!-- 下拉列表 -->
       <el-table-column type="expand">
         <template v-slot="{row}">
@@ -97,7 +97,7 @@ export default {
     };
   },
   methods: {
-    async getRoleData() {
+    async getRoleData(callback) {
       try {
         let res = await this.$http({
           url: "roles"
@@ -105,6 +105,7 @@ export default {
         // console.log(res);
         if (res.data.meta.status === 200) {
           this.roleList = res.data.data;
+          callback && callback();
         } else {
           this.$message({
             type: "error",
@@ -125,13 +126,13 @@ export default {
           // 将所有的权限显示在tree
           this.rightsList = res.data.data;
           // 将三个等级的id放到各自的对应的数组
-          let level1Id = [];
-          let level2Id = [];
+          // let level1Id = [];
+          // let level2Id = [];
           let level3Id = [];
           row.children.forEach(level1 => {
-            level1Id.push(level1.id);
+            // level1Id.push(level1.id);
             level1.children.forEach(level2 => {
-              level2Id.push(level2.id);
+              // level2Id.push(level2.id);
               level2.children.forEach(level3 => {
                 level3Id.push(level3.id);
               });
@@ -176,27 +177,31 @@ export default {
     async delRights(row, id) {
       // console.log(id);
       // 将三个等级的id放到各自的对应的数组
-      let level1Id = [];
-      let level2Id = [];
-      let level3Id = [];
-      row.children.forEach(level1 => {
-        level1Id.push(level1.id);
-        level1.children.forEach(level2 => {
-          level2Id.push(level2.id);
-          level2.children.forEach(level3 => {
-            level3Id.push(level3.id);
-          });
-        });
-      });
-      // 将三个数组结构，数据放到一个代表选中的数组中
-      let result = [...level1Id, ...level2Id, ...level3Id];
-      //从显示的权限中过滤掉删除的权限
-      let rids = result.filter(v => v !== id).join(",");
-      // console.log(result, rids);
+      // let level1Id = [];
+      // let level2Id = [];
+      // let level3Id = [];
+      // row.children.forEach(level1 => {
+      //   level1Id.push(level1.id);
+      //   level1.children.forEach(level2 => {
+      //     level2Id.push(level2.id);
+      //     level2.children.forEach(level3 => {
+      //       level3Id.push(level3.id);
+      //     });
+      //   });
+      // });
+      // // 将三个数组结构，数据放到一个代表选中的数组中
+      // let result = [...level1Id, ...level2Id, ...level3Id];
+      // //从显示的权限中过滤掉删除的权限
+      // let rids = result.filter(v => v !== id).join(",");
+      // // console.log(result, rids);
+      // let res = await this.$http({
+      //   url: `roles/${row.id}/rights`,
+      //   method: "post",
+      //   data: { rids }
+      // });
       let res = await this.$http({
-        url: `roles/${row.id}/rights`,
-        method: "post",
-        data: { rids }
+        url: `roles/${row.id}/rights/${id}`,
+        method: "delete"
       });
       if (res.data.meta.status === 200) {
         this.$message({
@@ -204,7 +209,14 @@ export default {
           message: res.data.meta.msg,
           duration: 2000
         });
-        this.getRoleData();
+        this.getRoleData(() => {
+          this.$nextTick(() => {
+            this.$refs.roleTable.toggleRowExpansion(
+              this.roleList.find(v => v.id === row.id),
+              true
+            );
+          });
+        });
       } else {
         this.$message({
           type: "error",
