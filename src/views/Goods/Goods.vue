@@ -5,7 +5,7 @@
       <el-breadcrumb-item>商品管理</el-breadcrumb-item>
       <el-breadcrumb-item>商品列表</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-button type="success" plain>添加商品</el-button>
+    <el-button type="success" plain @click="$router.push('/goods-add')">添加商品</el-button>
     <el-table highlight-current-row style="width: 100%" :data="goodsData" ref="singleTable" stripe>
       <el-table-column type="index" width="50"></el-table-column>
       <el-table-column property="goods_name" label="商品名称" width="400"></el-table-column>
@@ -53,7 +53,7 @@ export default {
           }
         });
         if (res.data.meta.status === 200) {
-          console.log(res.data.data.total);
+          console.log(res.data.data.goods);
           this.goodsData = res.data.data.goods;
           this.total = res.data.data.total;
         } else {
