@@ -5,6 +5,8 @@ import Home from './views/Home/Home.vue'
 import User from './views/User/user.vue'
 import Role from './views/Role/role.vue'
 import Rights from './views/Role/rights.vue'
+import Goods from './views/Goods/Goods.vue'
+import Categories from './views/Goods/Categories.vue'
 
 Vue.use(Router)
 
@@ -19,16 +21,24 @@ export default new Router({
       component: Home,
       children: [
         {
-          path: '/user',
+          path: '/users',
           component: User
         },
         {
-          path: '/role',
+          path: '/roles',
           component: Role
         },
         {
           path: '/rights',
           component: Rights
+        },
+        {
+          path: '/goods',
+          component: Goods
+        },
+        {
+          path: '/categories',
+          component: Categories
         }
       ]
     },

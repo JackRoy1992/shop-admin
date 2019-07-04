@@ -29,75 +29,15 @@
           :unique-opened="true"
           :router="true"
         >
-          <el-submenu index="1">
+          <el-submenu v-for="menu1 in menuData" :key="menu1.id" :index="menu1.id+''">
             <template slot="title">
               <i class="el-icon-location"></i>
-              <span>用户管理</span>
+              <span>{{menu1.authName}}</span>
             </template>
-            <el-menu-item-group>
-              <el-menu-item index="/user">
+            <el-menu-item-group v-for="menu2 in menu1.children" :key="menu2.id">
+              <el-menu-item :index="'/'+menu2.path">
                 <i class="el-icon-menu"></i>
-                <span slot="title">用户管理</span>
-              </el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="2">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>权限管理</span>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="/role">
-                <i class="el-icon-menu"></i>
-                <span slot="title">角色列表</span>
-              </el-menu-item>
-              <el-menu-item index="/rights">
-                <i class="el-icon-menu"></i>
-                <span slot="title">权限列表</span>
-              </el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="3">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>商品管理</span>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="3-1">
-                <i class="el-icon-menu"></i>
-                <span slot="title">商品列表</span>
-              </el-menu-item>
-              <el-menu-item index="3-2">
-                <i class="el-icon-menu"></i>
-                <span slot="title">分类参数</span>
-              </el-menu-item>
-              <el-menu-item index="3-3">
-                <i class="el-icon-menu"></i>
-                <span slot="title">商品分类</span>
-              </el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="4">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>订单管理</span>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="4-1">
-                <i class="el-icon-menu"></i>
-                <span slot="title">订单分类</span>
-              </el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-          <el-submenu index="5">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>数据统计</span>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="5-1">
-                <i class="el-icon-menu"></i>
-                <span slot="title">数据报表</span>
+                <span slot="title">{{menu2.authName}}</span>
               </el-menu-item>
             </el-menu-item-group>
           </el-submenu>
@@ -112,7 +52,32 @@
 
 <script>
 export default {
+  data() {
+    return {
+      menuData: {}
+    };
+  },
+  created() {
+    this.getMenuData();
+  },
   methods: {
+    async getMenuData() {
+      try {
+        let res = await this.$http({
+          url: "menus"
+        });
+        if (res.data.meta.status === 200) {
+          this.menuData = res.data.data;
+          // console.log(this.menuData);
+        } else {
+          this.$message({
+            type: "error",
+            message: res.data.meta.msg,
+            duration: 2000
+          });
+        }
+      } catch (err) {}
+    },
     logout() {
       localStorage.setItem("mytoken", "");
       this.$router.push("/login");
